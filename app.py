@@ -7,7 +7,8 @@ import base64
 import time
 import uuid
 from datetime import datetime
-import betaxiv.session_manager as session_manager
+import session_manager
+from streamlit_pdf_viewer import pdf_viewer
 
 # Load environment variables
 load_dotenv()
@@ -138,12 +139,13 @@ if "current_file_path" not in st.session_state:
 
 
 def display_pdf(file_path):
-    """Displays PDF in Streamlit using iframe"""
+    """Displays PDF in Streamlit using streamlit-pdf-viewer"""
     try:
-        with open(file_path, "rb") as f:
-            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800" type="application/pdf"></iframe>'
-        st.markdown(pdf_display, unsafe_allow_html=True)
+        # pdf_viewer(input, width=None, height=None, key=None, annotations=None)
+        # We can specify height to make it scrollable within a container, 
+        # but typically just calling it renders the PDF pages.
+        # User requested continuous vertical scrolling, which this component usually does by rendering pages as canvas/img.
+        pdf_viewer(file_path, height=800) 
     except FileNotFoundError:
         st.error("File not found. It may have been deleted.")
 

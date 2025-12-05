@@ -10,3 +10,4 @@ streamlit run app.py
 configure your gemini api key in sidebar
 
 
+## ※Jules君が作ってくれました
